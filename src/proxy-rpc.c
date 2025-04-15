@@ -56,7 +56,7 @@ static CLIENT *get_rpc_client() {
 int destroy() {
   CLIENT *clnt = get_rpc_client();
   if (!clnt)
-    return -2;
+    {return -2;}
 
   int *result = destroy_1(NULL, clnt);
   if (result == NULL) {
@@ -72,7 +72,7 @@ int destroy() {
 /* Implementación de set_value() usando RPC */
 int set_value(int key, char *value1, int N_value2, double *V_value2, struct Coord value3) {
   if (strlen(value1) > 255 || N_value2 < 1 || N_value2 > 32)
-    return -1;
+    {return -1;}
 
   request_t req;
   memset(&req, 0, sizeof(req));
@@ -88,7 +88,7 @@ int set_value(int key, char *value1, int N_value2, double *V_value2, struct Coor
 
   CLIENT *clnt = get_rpc_client();
   if (!clnt)
-    return -2;
+    {return -2;}
 
   response_t *resp = set_value_1(&req, clnt);
   if (resp == NULL) {
@@ -110,13 +110,13 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
 
   CLIENT *clnt = get_rpc_client();
   if (!clnt)
-    return -2;
+    {return -2;}
 
   response_t *resp = get_value_1(&req, clnt);
   if (resp == NULL) {
     clnt_perror(clnt, "Error en get_value_1");
     clnt_destroy(clnt);
-    return -2;
+    {return -2;}
   }
   int ret = resp->result;
   if (ret == 0) {
@@ -137,7 +137,7 @@ int get_value(int key, char *value1, int *N_value2, double *V_value2, struct Coo
 /* Implementación de modify_value() usando RPC */
 int modify_value(int key, char *value1, int N_value2, double *V_value2, struct Coord value3) {
   if (strlen(value1) > 255 || N_value2 < 1 || N_value2 > 32)
-    return -1;
+    {return -1;}
 
   request_t req;
   memset(&req, 0, sizeof(req));
@@ -153,7 +153,7 @@ int modify_value(int key, char *value1, int N_value2, double *V_value2, struct C
 
   CLIENT *clnt = get_rpc_client();
   if (!clnt)
-    return -2;
+    {return -2;}
 
   response_t *resp = modify_value_1(&req, clnt);
   if (resp == NULL) {
@@ -175,7 +175,7 @@ int delete_key(int key) {
 
   CLIENT *clnt = get_rpc_client();
   if (!clnt)
-    return -2;
+    {return -2;}
 
   response_t *resp = delete_key_1(&req, clnt);
   if (resp == NULL) {
@@ -197,7 +197,9 @@ int exist(int key) {
 
   CLIENT *clnt = get_rpc_client();
   if (!clnt)
+    {
     return -2;
+  }
 
   response_t *resp = exist_1(&req, clnt);
   if (resp == NULL) {

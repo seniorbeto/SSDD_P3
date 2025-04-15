@@ -13,7 +13,6 @@ import re
 import sys
 
 SERVER_ADDR = None
-SERVER_PORT = None
 
 
 class Test(unittest.TestCase):
@@ -26,7 +25,7 @@ class Test(unittest.TestCase):
         :return: Tupla (salida, error) de la ejecución.
         """
         input_data = "\n".join(commands) + "\n"
-        process = subprocess.Popen(["env",f"IP_TUPLAS={SERVER_ADDR}",f"PORT_TUPLAS={SERVER_PORT}", "./cmake-build-release/app-cliente"],
+        process = subprocess.Popen(["env",f"IP_TUPLAS={SERVER_ADDR}", "./cmake-build-release/app-cliente"],
                                    stdin=subprocess.PIPE,
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE,
@@ -307,12 +306,11 @@ class Test(unittest.TestCase):
         self.assertIn("Las coordenadas deben ser números enteros", out, "El servidor no detectó el error")
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print("Uso: python3 test.py <IP> <PUERTO>")
+    if len(sys.argv) != 2:
+        print("Uso: python3 test.py <IP>")
         sys.exit(1)
 
     SERVER_ADDR = sys.argv[1]
-    SERVER_PORT = sys.argv[2]
     # Esto sirve para que el unittest no se confunda, que es un poco bobo
     sys.argv = [sys.argv[0]]
 
