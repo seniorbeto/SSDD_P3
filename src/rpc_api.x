@@ -1,4 +1,4 @@
-struct Coord {
+struct Coord_t {
     int x;
     int y;
 };
@@ -9,7 +9,7 @@ struct request_t {
     char value1<256>;
     int N_value2;
     double V_value2<32>;
-    struct Coord value3;
+    struct Coord_t value3;
 };
 
 struct response_t {
@@ -17,7 +17,7 @@ struct response_t {
     char value1<256>;
     int N_value2;
     double V_value2<32>;
-    struct Coord value3;
+    struct Coord_t value3;
 };
 
 program KEYS {
@@ -29,4 +29,4 @@ program KEYS {
         response_t DELETE_KEY(request_t request) = 4;
         response_t EXIST(request_t request) = 5;
     } = 1;
-} = 1;
+} = 0x20000001;
