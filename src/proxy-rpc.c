@@ -9,7 +9,6 @@
 #include <unistd.h>
 
 #include "common/claves.h"
-#include "common/encript.h"
 #include "rpc_api.h"
 
 #define MAX_MSG_SIZE 1024
@@ -21,12 +20,6 @@
 #define OP_MODIFY_VALUE 3
 #define OP_DELETE_KEY 4
 #define OP_EXIST 5
-
-/*
- * Lo suyo sería que el cliente y el servidor pactaran esta clave mediante
- * un algoritmo de criptografía asimétrica.
- */
-#define CIHPER_KEY {0x12345678, 0x9abcdef0, 0x0fedcba9, 0xfedcba98}
 
 int get_ip_address(char *ip) {
   char *ip_local = getenv("IP_TUPLAS");

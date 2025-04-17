@@ -9,13 +9,12 @@ include_directories(/usr/include/tirpc)
 
 add_library(claves SHARED proxy-rpc.c rpc_api_clnt.c rpc_api_xdr.c)
 target_link_libraries(claves PRIVATE pthread rt tirpc)
-add_library(encript SHARED common/encript.c)
 
 add_executable(servidor-rpc servidor-rpc.c common/claves.c rpc_api_svc.c rpc_api_xdr.c)
-target_link_libraries(servidor-rpc PRIVATE pthread rt encript tirpc)
+target_link_libraries(servidor-rpc PRIVATE pthread rt tirpc)
 
 add_executable(app-cliente app-cliente.c)
-target_link_libraries(app-cliente PRIVATE claves pthread rt encript)
+target_link_libraries(app-cliente PRIVATE claves pthread rt)
 
 # Esto sirve para indicar al cliente que busque las librerías en el directorio actual
 set_target_properties(app-cliente PROPERTIES BUILD_RPATH ".")
